@@ -2770,8 +2770,8 @@ Object.defineProperty 是 ES5 中一个无法 shim 的特性，这也就是 Vue 
 
 但是这样做有以下问题：
 
-1. 添加或删除对象的属性时，Vue 检测不到。因为添加或删除的对象没有在初始化进行响应式处理，只能通过`$set` 来调用`Object.defineProperty()`处理。
-2. 无法监控到数组下标和长度的变化。
+1. 添加或删除对象的属性时，Vue 检测不到。因为新增的属性没有在初始化进行响应式处理，`Object.defineProperty`无法监听对象删除属性，只能通过`$set` 来调用`Object.defineProperty()`处理。
+2. 无法监控到数组变化。['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']等方法`Object.defineProperty`监听不到数组的变化，Vue通过重写这些数组的方法实现响应式。`Object.defineProperty` 可以监听到数组下标的变化但会带来性能问题。
 
 
 
